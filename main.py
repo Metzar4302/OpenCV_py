@@ -15,12 +15,13 @@ def main():
     image_cat = cv2.imread("Img/cat.jpg")
     r = float(final_wide) / image_cat.shape[1]
     dim = (final_wide, int(image_cat.shape[0] * r))
-
-    debugImg = cv2.imread("Img/debug_img.jpg")
+    
+    lensImg = cv2.imread("Img/gitlens.png")
+    lensImgPath = "Img/gitlens.png"
 
     #? resize
-    image = resize(image_cat, dim)
-    cv2.imshow("Picture", image)
+    # image = resize(image_cat, dim)
+    # cv2.imshow("Picture", image)
 
     #? recolor to gray
     # image = toGray(image)
@@ -31,11 +32,11 @@ def main():
 
     #! Searching on screen
     #? Find of position
-    # position = findOnScreen(debugImg)
+    # position = findOnScreen(lensImgPath)
     # print(position)
 
-    #? Click to debug
-    # clickToDebug(debugImg)
+    #? Click to find image
+    # clickToFImg(lensImgPath)
 
     #! Create new file
     # createNewFile()
@@ -65,8 +66,8 @@ def shotTest():
 def findOnScreen(image):
     return pg.locateOnScreen(image)
 
-def clickToDebug(image):
-    (pos_x, pos_y) = pg.locateCenterOnScreen(cv2.imread('debug_img.png'))
+def clickToFImg(image_path):
+    (pos_x, pos_y) = pg.locateCenterOnScreen(image_path)
     pg.click(pos_x, pos_y)
 
 def createNewFile():
@@ -83,15 +84,16 @@ def calcUse():
     pg.press("enter")
     # pg.click(pg.locateCenterOnScreen('Img\\calc_icon.png', grayscale = True, confidence=0.9))
     time.sleep(1)   # Time for program start-lag
-    pg.click(pg.locateCenterOnScreen('Img\\calc_1_btn.png', grayscale = True, confidence=0.9))
-    pg.click(pg.locateCenterOnScreen('Img\\calc_plus_btn.png', grayscale = True, confidence=0.9))
-    pg.click(pg.locateCenterOnScreen('Img\\calc_2_btn.png', grayscale = True, confidence=0.9))
-    pg.click(pg.locateCenterOnScreen('Img\\calc_equal_btn.png', grayscale = True, confidence=0.9))
-    pg.click(pg.locateCenterOnScreen('Img\\calc_minus_btn.png', grayscale = True, confidence=0.9))
-    pg.click(pg.locateCenterOnScreen('Img\\calc_1_btn.png', grayscale = True, confidence=0.9))
-    pg.click(pg.locateCenterOnScreen('Img\\calc_equal_btn.png', grayscale = True, confidence=0.9))
+    #? use fake-mouse
+    # pg.click(pg.locateCenterOnScreen('Img\\calc_1_btn.png', grayscale = True, confidence=0.9))
+    # pg.click(pg.locateCenterOnScreen('Img\\calc_plus_btn.png', grayscale = True, confidence=0.9))
+    # pg.click(pg.locateCenterOnScreen('Img\\calc_2_btn.png', grayscale = True, confidence=0.9))
+    # pg.click(pg.locateCenterOnScreen('Img\\calc_equal_btn.png', grayscale = True, confidence=0.9))
+    # pg.click(pg.locateCenterOnScreen('Img\\calc_minus_btn.png', grayscale = True, confidence=0.9))
+    # pg.click(pg.locateCenterOnScreen('Img\\calc_1_btn.png', grayscale = True, confidence=0.9))
+    # pg.click(pg.locateCenterOnScreen('Img\\calc_equal_btn.png', grayscale = True, confidence=0.9))
+    #? use fake-keyboard
     pg.typewrite("1+5=")
-    pg.press("enter")
 
 def messageTest():
     if msg.confirm(text='CONFIRM_TEXT', title='CONFIRM_TITLE', buttons=['OK', 'Cancel']) == 'OK':
