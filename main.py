@@ -1,4 +1,6 @@
-# добавим необходимый пакет с opencv
+from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtGui import QIcon
+import sys
 import numpy as np
 import pyautogui as pg
 import imutils
@@ -7,6 +9,14 @@ import time
 import pymsgbox as msg
 
 def main():
+    #? Recomment for testing
+    tests()
+
+
+
+
+
+def tests():
     # ! Basic image test
     # Нам надо сохранить соотношение сторон
     # чтобы изображение не исказилось при уменьшении
@@ -16,40 +26,38 @@ def main():
     r = float(final_wide) / image_cat.shape[1]
     dim = (final_wide, int(image_cat.shape[0] * r))
     
-    lensImg = cv2.imread("Img/gitlens.png")
     lensImgPath = "Img/gitlens.png"
 
     #? resize
-    # image = resize(image_cat, dim)
-    # cv2.imshow("Picture", image)
+    image = resize(image_cat, dim)
+    cv2.imshow("Picture", image)
 
     #? recolor to gray
-    # image = toGray(image)
-    # cv2.imshow("Recolor", image)
+    image = toGray(image)
+    cv2.imshow("Recolor", image)
     
     # ! Screenshot test
     # shotTest()
 
     #! Searching on screen
     #? Find of position
-    # position = findOnScreen(lensImgPath)
-    # print(position)
+    position = findOnScreen(lensImgPath)
+    print(position)
 
     #? Click to find image
-    # clickToFImg(lensImgPath)
+    clickToFImg(lensImgPath)
 
     #! Create new file
-    # createNewFile()
+    createNewFile()
 
     #! Calculate
-    # calcUse()
+    calcUse()
 
     #! Message box function testing
-    # messageTest()
+    messageTest()
 
     #! Grayscale edge testing
-    # grayscaleTest()
-
+    grayscaleTest()
 
 def resize(image, dim):
     resized = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
@@ -102,7 +110,6 @@ def messageTest():
         msg.alert(text='u r pressed CANCEL', title='ALERT_TITLE', button='OK')
     msg.password(text='', title='', default='', mask='*')
 
-
 def grayscaleTest():
     enot = cv2.imread("Img\\enot.jpg")
     # cv2.imshow("Original", enot)
@@ -130,9 +137,9 @@ def grayscaleTest():
     cv2.imshow("Cartoon", enot_cartoon_gray)
     print(enot_cartoon_gray.shape)
 
-
 #! Start
-main()
+if __name__ == '__main__':
+    main()
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
