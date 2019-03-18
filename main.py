@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5.QtGui import QIcon
+from PyQt5 import QtWidgets, uic, QtCore
+from design import Ui_MainWindow
 import sys
 import numpy as np
 import pyautogui as pg
@@ -8,19 +8,35 @@ import cv2 as cv2
 import time
 import pymsgbox as msg
 
+# pyuic5 Design/design.ui -o design.py
+# https://python-scripts.com/pyqt5
+class mywindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(mywindow, self).__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.ui.progressBar.setRange(0, 100)
+        self.ui.progressBar.setValue(10)
+        self.ui.horizontalSlider.setValue(35)
+        self.ui.calendarWidget.setSelectedDate(QtCore.QDate(1993, 5, 5))
+        self.ui.pushButton.clicked.connect(self.btn_click)
+
+    def btn_click(self):
+        self.ui.textEdit.setText("Button was clicked")
+
 def main():
     #? Recomment for testing
-    tests()
+    # tests()
+    app = QtWidgets.QApplication([])
+    win = mywindow()
+    win.show()
 
-
+    sys.exit(app.exec())
 
 
 
 def tests():
     # ! Basic image test
-    # Нам надо сохранить соотношение сторон
-    # чтобы изображение не исказилось при уменьшении
-    # для этого считаем коэф. уменьшения стороны
     final_wide = 200
     image_cat = cv2.imread("Img/cat.jpg")
     r = float(final_wide) / image_cat.shape[1]
